@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/wake_background"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="10dp"
+    tools:context="com.joe.lazyalarm.activity.WakeUpActivity">
+    <TextView
+        android:id="@id/tv_date_wake"
+        android:gravity="center"
+        android:text=""
+        android:textSize="25sp"
+        android:textColor="#80ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@id/tv_time_wake"
+        android:text="7:30"
+        android:gravity="center"
+        android:textSize="50sp"
+        android:textColor="#faffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@id/iv_wether_wake"
+        android:src="@mipmap/day_03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="生活指南"
+            android:textSize="20sp"
+            android:textColor="#faffffff"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@id/tv_temp_wake"
+            android:layout_marginRight="10dp"
+            android:drawableLeft="@mipmap/icon_wendu"
+            android:text="——°"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="#faffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        style="@style/Divider_gray"
+        android:background="#70aaaaaa"
+        />
+    <FrameLayout
+
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <include
+            android:id="@id/ll_net_wake"
+            layout="@layout/lif_wake_include"/>
+
+        <LinearLayout
+            android:visibility="invisible"
+            android:id="@id/ll_nonet_wake"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:gravity="center"
+                style="@style/WakeUPLifeDesc"
+                android:layout_width="wrap_content"
+                android:text="网络挂了"
+                />
+            <ImageView
+                android:src="@mipmap/icon_nonet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:gravity="center"
+                style="@style/WakeUPLifeDesc"
+                android:layout_width="wrap_content"
+                android:text="但这并不会影响你今天的好运气！"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+
+    <Button
+        android:onClick="iKnow"
+        android:text="我知道啦"
+        android:textColor="#aaffffff"
+        android:background="#80ff4477"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

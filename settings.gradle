@@ -1,0 +1,1 @@
+include ':app', ':library',':slidemenu:SlidingMenu-master/library'

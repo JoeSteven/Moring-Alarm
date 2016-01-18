@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 主页 -->
+    <item type="id" name="fl_wether"/>
+    <item type="id" name="fl_alam"/>
+    <item type="id" name="iv_add_home"/>
+
+    <!-- 闹钟frag -->
+    <item type="id" name="lv_alarm"/>
+
+    <!-- 闹钟frag -->
+    <item type="id" name="tv_title_item"/>
+    <item type="id" name="tv_desc_item"/>
+    <item type="id" name="bt_turn_item"/>
+
+    <!-- 添加闹钟 -->
+    <item type="id" name="iv_back_add"/>
+    <item type="id" name="tv_done_add"/>
+    <item type="id" name="tp_set_alarm_add"/>
+    <item type="id" name="cb_day_1"/>
+    <item type="id" name="cb_day_2"/>
+    <item type="id" name="cb_day_3"/>
+    <item type="id" name="cb_day_4"/>
+    <item type="id" name="cb_day_5"/>
+    <item type="id" name="cb_day_6"/>
+    <item type="id" name="cb_day_7"/>
+    <item type="id" name="aiv_tag_add"/>
+    <item type="id" name="aiv_lazy_add"/>
+    <item type="id" name="aiv_ring_add"/>
+
+    <!-- 主界面弹窗 -->
+    <item type="id" name="bt_update_alarm"/>
+    <item type="id" name="bt_delete_alarm"/>
+
+    <!-- item -->
+    <item type="id" name="rl_main_item"/>
+    <item type="id" name="ll_button_item"/>
+    <!-- 铃声设置 -->
+    <item type="id" name="lv_ring_set"/>
+    <item type="id" name="iv_back_ring"/>
+    <item type="id" name="tv_done_ring"/>
+    <!-- itemring -->
+    <item type="id" name="rb_check_ring"/>
+    <item type="id" name="tv_name_ring"/>
+
+    <!-- 天气页面 -->
+    <item type="id" name="iv_wether_img"/>
+    <item type="id" name="ll_background"/>
+    <item type="id" name="tv_wether_desc"/>
+    <item type="id" name="tv_temperature"/>
+    <item type="id" name="tv_wind"/>
+    <item type="id" name="tv_wind_power"/>
+    <item type="id" name="tv_pm25"/>
+    <item type="id" name="tv_pm25_desc"/>
+    <item type="id" name="iv_menu"/>
+    <item type="id" name="tv_future_1"/>
+    <item type="id" name="tv_future_2"/>
+    <item type="id" name="tv_future_3"/>
+    <item type="id" name="tv_future_4"/>
+    <item type="id" name="tv_future_5"/>
+    <item type="id" name="tv_future_6"/>
+    <!-- 菜单页 -->
+    <item type="id" name="fl_menu_content"/>
+    <item type="id" name="ll_change_city"/>
+    <item type="id" name="tv_current_city"/>
+    <item type="id" name="sb_close_wether"/>
+    <item type="id" name="sb_open_vibrate"/>
+    <item type="id" name="ll_future_content"/>
+    <item type="id" name="seek_volume_adjust"/>
+    <!-- 叫醒页 -->
+    <item type="id" name="title_cloth_wake"/>
+    <item type="id" name="desc_cloth_wake"/>
+    <item type="id" name="title_yudong_wake"/>
+    <item type="id" name="desc_yudong_wake"/>
+    <item type="id" name="title_cold_wake"/>
+    <item type="id" name="desc_cold_wake"/>
+    <item type="id" name="tv_date_wake"/>
+    <item type="id" name="tv_time_wake"/>
+    <item type="id" name="tv_temp_wake"/>
+    <item type="id" name="iv_wether_wake"/>
+    <item type="id" name="ll_nonet_wake"/>
+    <item type="id" name="ll_net_wake"/>
+
+    <!-- 更换城市 -->
+    <item type="id" name="et_change_city"/>
+    <item type="id" name="lv_change_city"/>
+
+</resources>

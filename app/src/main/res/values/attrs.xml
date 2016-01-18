@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AddItemView">
+        <attr name="aivtitle" format="string" />
+        <attr name="aivdesc" format="string" />
+        <attr name="aivsrc" format="reference" />
+    </declare-styleable>
+</resources>

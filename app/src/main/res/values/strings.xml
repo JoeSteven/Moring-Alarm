@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Morning</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_wake_up">WakeUpActivity</string>
+    <string name="title_activity_ring_set">RingSetActivity</string>
+    <string name="title_activity_guide">GuideActivity</string>
+</resources>

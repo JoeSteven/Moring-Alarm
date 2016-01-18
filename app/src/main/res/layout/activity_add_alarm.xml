@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aiv="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.joe.lazyalarm.activity.AddAlarmActivity">
+
+        <!-- 时间-->
+        <TimePicker
+            android:timePickerMode="spinner"
+            android:id="@id/tp_set_alarm_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_below="@id/tp_set_alarm_add"
+            android:id="@+id/divider_add"
+            style="@style/Divider_gray"
+            />
+
+    <!-- 底边栏-->
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:id="@+id/ll_bottom_add">
+        <ImageView
+            android:onClick="cancelAlarm"
+            android:id="@id/iv_back_add"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_back"
+            />
+        <TextView
+            android:layout_alignParentRight="true"
+            android:onClick="doneAlarm"
+            android:id="@id/tv_done_add"
+            android:layout_marginRight="40dp"
+            android:gravity="right"
+            android:text="完成"
+            android:textSize="25sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <TextView
+
+        android:layout_above="@id/ll_bottom_add"
+        style="@style/Divider_gray" />
+
+    <!-- 选项-->
+    <ScrollView
+        android:layout_below="@id/divider_add"
+        android:layout_above="@id/ll_bottom_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:gravity="center_vertical"
+                >
+                <TextView
+                    android:text="重复"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    />
+                <CheckBox
+                    android:id="@id/cb_day_7"
+                    android:button="@null"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/day7_week_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@id/cb_day_1"
+                    android:button="@null"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/day1_week_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@id/cb_day_2"
+                    android:button="@null"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/day2_week_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@id/cb_day_3"
+                    android:button="@null"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/day3_week_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@id/cb_day_4"
+                    android:button="@null"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/day4_week_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@id/cb_day_5"
+                    android:button="@null"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/day5_week_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <CheckBox
+                    android:id="@id/cb_day_6"
+                    android:button="@null"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/day6_week_selector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                style="@style/Divider_gray" />
+
+            <com.joe.lazyalarm.view.AddItemView
+                android:id="@id/aiv_tag_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                aiv:aivtitle="标签"
+                aiv:aivdesc="闹钟"
+                >
+
+            </com.joe.lazyalarm.view.AddItemView>
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                style="@style/Divider_gray" />
+            <com.joe.lazyalarm.view.AddItemView
+                android:id="@id/aiv_lazy_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                aiv:aivtitle="赖床指数"
+                aiv:aivdesc="请选择赖床指数哦"
+                >
+
+            </com.joe.lazyalarm.view.AddItemView>
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                style="@style/Divider_gray" />
+            <com.joe.lazyalarm.view.AddItemView
+                android:id="@id/aiv_ring_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                aiv:aivtitle="铃声"
+                aiv:aivdesc="everybody"
+                aiv:aivsrc="@mipmap/arrow"
+                >
+
+            </com.joe.lazyalarm.view.AddItemView>
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                style="@style/Divider_gray" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

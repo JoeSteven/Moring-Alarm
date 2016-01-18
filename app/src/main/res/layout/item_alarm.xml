@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    >
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:id="@id/ll_button_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="5dp"
+        >
+        <Button
+            android:clickable="false"
+            android:focusable="false"
+            android:id="@+id/bt_delete_item"
+            android:background="@android:color/holo_red_light"
+            android:text="删除"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <Button
+            android:clickable="false"
+            android:focusable="false"
+            android:id="@+id/bt_update_item"
+            android:background="@android:color/darker_gray"
+            android:text="修改闹钟"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:background="@android:color/black"
+            android:layout_width="1dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <RelativeLayout
+        android:background="@android:color/white"
+        android:id="@id/rl_main_item"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+            android:textColor="@android:color/black"
+            android:id="@id/tv_title_item"
+            android:text="06:30"
+            android:textSize="30sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@android:color/black"
+            android:id="@id/tv_desc_item"
+            android:text="15个小时30分钟后"
+            android:textSize="16sp"
+            android:layout_below="@id/tv_title_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@id/bt_turn_item"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            style="@style/SwitchButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:kswBackDrawable="@drawable/flyme_back_drawable"
+            app:kswBackMeasureRatio="2.2"
+            app:kswThumbDrawable="@drawable/flyme_thumb_drawable"
+            app:kswThumbHeight="16dp"
+            app:kswThumbWidth="16dp"
+            />
+    </RelativeLayout>
+
+</RelativeLayout>
