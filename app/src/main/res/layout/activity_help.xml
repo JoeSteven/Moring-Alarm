@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.joe.lazyalarm.activity.HelpActivity">
+    <TextView
+        style="@style/HelpTextTitle"
+        android:text="1.后台自启权限"
+        />
+    <TextView
+        android:text="使用前请先在系统设置中找到应用管理-->权限管理，允许Morning自启"
+        style="@style/HelpTextDesc"
+         />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:text="2.内存清理白名单"
+        style="@style/HelpTextTitle" />
+    <TextView
+        android:text="如果您安装了360卫士等第三方安全卫士，请进入到该应用中找到内存清理的选项，并把Morning添加到信任白名单中"
+        style="@style/HelpTextDesc" />
+    <TextView
+        android:layout_marginTop="20dp"
+        android:text="3.魅族配置方法"
+        style="@style/HelpTextTitle" />
+    <TextView
+        android:text="（该条只针对魅族手机）请先在应用管理中找到Morning打开自启动选项，然后在安全中心的电源管理中将Morning添加为待机运行"
+        style="@style/HelpTextDesc" />
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+    <Button
+        android:onClick="backToHome"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/selector_button_help"
+        android:text="我知道啦"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

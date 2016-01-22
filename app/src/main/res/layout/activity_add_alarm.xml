@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
 
     tools:context="com.joe.lazyalarm.activity.AddAlarmActivity">
-
         <!-- 时间-->
         <TimePicker
             android:timePickerMode="spinner"

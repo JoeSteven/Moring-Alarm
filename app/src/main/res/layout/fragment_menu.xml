@@ -4,16 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#c800B16A"
+
     >
     <LinearLayout
-        android:paddingTop="30dp"
-        android:paddingBottom="20dp"
+        android:paddingTop="50dp"
+        android:paddingBottom="30dp"
         android:paddingLeft="10dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
+        android:background="@color/lightblue"
         >
         <ImageView
             android:layout_width="wrap_content"
@@ -23,14 +24,12 @@
         <TextView
             android:gravity="center_vertical"
             android:textSize="25sp"
+            android:textColor="@android:color/white"
             android:text="选项"
             android:layout_marginLeft="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
-    <TextView
-        style="@style/Divider_menu"
-        />
     <!-- 更换城市-->
     <LinearLayout
 
@@ -47,16 +46,12 @@
         <TextView
             android:id="@id/tv_current_city"
             android:layout_marginRight="10dp"
-            style="@style/TextBond"
             android:textColor="#eb4f38"
             android:text="武汉"
             android:textSize="20sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <TextView
-        style="@style/Divider_menu"
-        />
 
     <LinearLayout
         android:gravity="center_vertical"
@@ -81,9 +76,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <TextView
-        style="@style/Divider_menu"
-        />
     <LinearLayout
     android:gravity="center_vertical"
     android:padding="10dp"
@@ -108,9 +100,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    <TextView
-        style="@style/Divider_menu"
-        />
     <LinearLayout
         android:gravity="center_vertical"
         android:padding="10dp"
@@ -133,6 +122,22 @@
     </LinearLayout>
     <TextView
         style="@style/Divider_menu"
+        />
+
+    <TextView
+        style="@style/MenuText"
+        android:text="使用前配置"
+        android:onClick="howToUse"
+        />
+    <TextView
+        style="@style/MenuText"
+        android:text="联系我们"
+        android:onClick="contactUs"
+        />
+    <TextView
+        style="@style/MenuText"
+        android:text="关于Morning"
+        android:onClick="aboutMorning"
         />
 </LinearLayout>
 

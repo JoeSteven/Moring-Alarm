@@ -179,9 +179,7 @@ public class AlarmReciver  extends BroadcastReceiver{
     //启动并绑定服务
         final Intent service=new Intent(context, AlarmRingService.class);
         service.putExtra("resid", resid);
-       // final myServiceConn conn=new myServiceConn();
         context.startService(service);
-        //context.bindService(service,conn,0);
 
 
         View edit=View.inflate(context, R.layout.dialog_tag,null);

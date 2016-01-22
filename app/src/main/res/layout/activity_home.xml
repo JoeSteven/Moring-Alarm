@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@android:color/white"
-
     tools:context=".activity.HomeActivity">
     <android.support.design.internal.ScrimInsetsFrameLayout
         android:id="@id/fl_wether"
         android:layout_weight="2"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        >
 
     </android.support.design.internal.ScrimInsetsFrameLayout>
     <android.support.design.internal.ScrimInsetsFrameLayout
@@ -22,12 +22,19 @@
         android:layout_height="0dp">
 
     </android.support.design.internal.ScrimInsetsFrameLayout>
-    <ImageView
-        android:layout_marginBottom="10dp"
-        android:onClick="addAlarm"
-        android:id="@id/iv_add_home"
-        android:src="@mipmap/icon_add"
-        android:layout_gravity="center_horizontal"
+
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        app:backgroundTint="@color/blue"
+        app:rippleColor="#33728dff"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@mipmap/ic_content_add"
+        app:borderWidth="0dp"
+        android:id="@id/iv_add_home"
+        android:onClick="addAlarm"
+        />
+
 </LinearLayout>

@@ -3,7 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="purple">#AF949C</color>
-    <color name="blue">#20A2D4</color>
+    <color name="purple">#FF509C</color>
+    <color name="ligthtpurple">#d2ff509c</color>
+    <color name="blue">#28A4E9</color>
+    <color name="lightblue">#d228a4e9</color>
     <color name="green">#3CB371</color>
+    <color name="TransBlack">#70000000</color>
+
 </resources>

@@ -139,7 +139,9 @@ public class GuideActivity extends AppCompatActivity {
     }
     public void startHome(View v){
         PrefUtils.putBoolean(this, ConsUtils.IS_FIRST_TIME,false);
-        startActivity(new Intent(this, HomeActivity.class));
+        Intent intent=new Intent(this, HomeActivity.class);
+        intent.putExtra("showGuide",true);
+        startActivity(intent);
         finish();
     }
 }

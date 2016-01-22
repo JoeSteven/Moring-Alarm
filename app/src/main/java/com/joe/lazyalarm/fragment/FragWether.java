@@ -239,15 +239,12 @@ public class FragWether extends BaseFragment {
         int img=Integer.parseInt(mTodayData.weather.img);
         if(currentHour>=6&&currentHour<=18){
             //白天
-            mBackground.setBackgroundResource(R.color.blue);
             if(img<ConsUtils.WETHER_IMG_DAY.length){
                 mIcon.setImageResource(ConsUtils.WETHER_IMG_DAY[img]);
             }else{
                 mIcon.setImageResource(ConsUtils.WETHER_IMG_DAY[0]);
             }
         }else{
-            //夜晚
-            mBackground.setBackgroundResource(R.color.purple);
             //防止脚标越界
             Log.d("wether", "img" + img);
             if(img<ConsUtils.WETHER_IMG_NIGHT.length){

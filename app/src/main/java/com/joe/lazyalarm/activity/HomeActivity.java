@@ -4,10 +4,10 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -30,12 +30,13 @@ public class HomeActivity extends SlidingFragmentActivity {
     private FragAlarm mFragAlarm;
     private FragWether mFragWether;
     private FragSlideMenu mFragSlideMenu;
+    private FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         //判斷是否是新用戶
@@ -44,18 +45,24 @@ public class HomeActivity extends SlidingFragmentActivity {
             finish();
             return;
         }
+
         //初始化数据库
         initDataBase("china_Province_city_zone.db");
         initSlideMenu();
         initView();
         initFragment();
         initService();
+        Intent intent=getIntent();
+        if(intent.getBooleanExtra("showGuide", false)){
+            firstTimeGuide();
+        }
+
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    private void firstTimeGuide() {
+        startActivity(new Intent(this,HintActivity.class));
     }
+
 
     //拷贝数据库数据
     private void initDataBase(String dbName) {
@@ -101,7 +108,9 @@ public class HomeActivity extends SlidingFragmentActivity {
         //设置为全屏拉出菜单
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         //设置菜单拉出后剩余屏幕宽度
-        slidingMenu.setBehindOffset(200);
+//让侧拉菜单充满屏幕的四分之三
+        int menuWidth=getWitdh();
+        slidingMenu.setBehindOffset(menuWidth);
         slidingMenu.setOnCloseListener(new SlidingMenu.OnCloseListener() {
             @Override
             public void onClose() {
@@ -111,6 +120,21 @@ public class HomeActivity extends SlidingFragmentActivity {
             }
         });
     }
+
+    private int getWitdh() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int mScreenWidth = dm.widthPixels;// 获取屏幕分辨率宽度
+
+        return (mScreenWidth)/5;
+    }
+
+    private int getPXfromDP(int DP) {
+        //获取设备密度
+        float density=getResources().getDisplayMetrics().density;
+        return (int)(DP*density+0.5f);
+    }
+
     private void initService() {
         startService(new Intent(this, WakeServiceOne.class));
     }
@@ -119,9 +143,11 @@ public class HomeActivity extends SlidingFragmentActivity {
         mFragAlarm = new FragAlarm();
         mFragWether = new FragWether();
         mFragSlideMenu = new FragSlideMenu();
+        fab = (FloatingActionButton) findViewById(R.id.iv_add_home);
     }
 
     private void initFragment() {
+
         FragmentManager fm=getFragmentManager();
         FragmentTransaction ft=fm.beginTransaction();
         //加入标记
@@ -160,5 +186,15 @@ public class HomeActivity extends SlidingFragmentActivity {
         //拿到侧滑菜单对象
         SlidingMenu slidingMenu=getSlidingMenu();
         slidingMenu.toggle();
+    }
+
+    public void howToUse(View v){
+        startActivity(new Intent(this, HelpActivity.class));
+    }
+    public void contactUs(View v){
+        startActivity(new Intent(this, ContactUsActivity.class));
+    }
+    public void aboutMorning(View v){
+        startActivity(new Intent(this, AboutActivity.class));
     }
 }

@@ -3,6 +3,7 @@ package com.joe.lazyalarm.fragment;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joe.lazyalarm.R;
+import com.joe.lazyalarm.activity.HelpActivity;
 import com.joe.lazyalarm.activity.HomeActivity;
 import com.joe.lazyalarm.dao.CityDao;
 import com.joe.lazyalarm.utils.ConsUtils;
@@ -276,7 +278,6 @@ public class FragSlideMenu extends BaseFragment {
 
     //播放音乐
     private void playAlarmMusic() {
-
         if(mPlayer==null){
             try {
                 mPlayer=new MediaPlayer();
@@ -291,9 +292,6 @@ public class FragSlideMenu extends BaseFragment {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-
-
         }
     }
 
@@ -305,4 +303,6 @@ public class FragSlideMenu extends BaseFragment {
             mPlayer=null;
         }
     }
+
+
 }
