@@ -139,5 +139,10 @@
         android:text="关于Morning"
         android:onClick="aboutMorning"
         />
+    <TextView
+        style="@style/MenuText"
+        android:text="检查更新"
+        android:onClick="checkUpdate"
+        />
 </LinearLayout>
 

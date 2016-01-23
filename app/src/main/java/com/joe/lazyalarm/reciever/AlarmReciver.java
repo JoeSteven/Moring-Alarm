@@ -20,15 +20,11 @@ import android.widget.Toast;
 
 import com.joe.lazyalarm.R;
 import com.joe.lazyalarm.activity.WakeUpActivity;
-import com.joe.lazyalarm.dao.AlarmInfoDao;
-import com.joe.lazyalarm.domain.AlarmClock;
-import com.joe.lazyalarm.domain.AlarmInfo;
 import com.joe.lazyalarm.service.AlarmRingService;
 import com.joe.lazyalarm.utils.ConsUtils;
 import com.joe.lazyalarm.utils.PrefUtils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -54,11 +50,7 @@ public class AlarmReciver  extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context=context;
-        //开机广播
-        if(intent.getAction().equals("android.intent.action.BOOT_COMPLETED")){
-            checkAndStartAlarm();
-            return;
-        }
+        Log.d("alarm","收到广播");
         //先进行判断今天该闹钟是否该响
         int[]dayOfWeek=intent.getIntArrayExtra("dayofweek");
         //需要的数据是 赖床级数 标签 铃声
@@ -93,20 +85,7 @@ public class AlarmReciver  extends BroadcastReceiver{
         }
     }
 
-    //开机时检查是否有闹钟需要开启
-    private void checkAndStartAlarm() {
-        Log.d("alarm","开始检查是否有闹钟");
-        AlarmInfoDao dao=new AlarmInfoDao(context);
-        ArrayList<AlarmInfo> list= (ArrayList<AlarmInfo>) dao.getAllInfo();
-        AlarmClock clock=new AlarmClock(context);
-        for (AlarmInfo alarmInfo:list) {
-            if(PrefUtils.getBoolean(context,alarmInfo.getId(),true)){
-                Log.d("alarm","有闹钟，开启");
-                clock.turnAlarm(alarmInfo,true);
-            }
 
-        }
-    }
 
     private void cancelAlarm(Intent intent) {
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);

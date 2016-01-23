@@ -11,6 +11,7 @@ import com.joe.lazyalarm.dao.AlarmInfoDao;
 import com.joe.lazyalarm.reciever.AlarmReciver;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by Joe on 2016/1/13.
@@ -59,7 +60,7 @@ public class AlarmClock {
 
 
     public void startAlarm(AlarmManager mAlamManager, PendingIntent pi){
-        //  Log.d("alarm","启动一次性闹钟");
+        Log.d("alarm","启动闹钟");
         Calendar c=Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY,alarmInfo.getHour());
         c.set(Calendar.MINUTE,alarmInfo.getMinute());
@@ -76,6 +77,9 @@ public class AlarmClock {
         }else{
             if(Build.VERSION.SDK_INT>=19)
             {
+                Log.d("alarm","执行定时任务");
+                Date date=c.getTime();
+                Log.d("alarm","定时的时间是"+date.toString());
                 mAlamManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
             }else{
                 mAlamManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);

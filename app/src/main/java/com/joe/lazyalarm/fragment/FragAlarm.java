@@ -25,6 +25,7 @@ import com.joe.lazyalarm.dao.AlarmInfoDao;
 import com.joe.lazyalarm.domain.AlarmClock;
 import com.joe.lazyalarm.domain.AlarmInfo;
 import com.joe.lazyalarm.reciever.AlarmReciver;
+import com.joe.lazyalarm.reciever.BootReceiver;
 import com.joe.lazyalarm.utils.PrefUtils;
 import com.kyleduo.switchbutton.SwitchButton;
 
@@ -48,6 +49,8 @@ public class FragAlarm extends BaseFragment{
     public View initView() {
         View view=View.inflate(mActivity,R.layout.fragment_alarm,null);
         lv_alarm = (ListView) view.findViewById(R.id.lv_alarm);
+        Intent intent=new Intent(mActivity,BootReceiver.class);
+        mActivity.sendBroadcast(intent);
         return view;
     }
 

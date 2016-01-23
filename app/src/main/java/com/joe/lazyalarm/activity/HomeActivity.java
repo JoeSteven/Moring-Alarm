@@ -19,6 +19,7 @@ import com.joe.lazyalarm.fragment.FragWether;
 import com.joe.lazyalarm.service.WakeServiceOne;
 import com.joe.lazyalarm.utils.ConsUtils;
 import com.joe.lazyalarm.utils.PrefUtils;
+import com.umeng.update.UmengUpdateAgent;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -45,7 +46,7 @@ public class HomeActivity extends SlidingFragmentActivity {
             finish();
             return;
         }
-
+        UmengUpdateAgent.update(this);
         //初始化数据库
         initDataBase("china_Province_city_zone.db");
         initSlideMenu();
@@ -170,6 +171,7 @@ public class HomeActivity extends SlidingFragmentActivity {
                     case ConsUtils.SET_ALARM_DONE:
                         Bundle bundle=data.getExtras();
                         AlarmInfo alarmInfo=(AlarmInfo)bundle.getSerializable("alarm");
+
                         mFragAlarm.addAlarmInfo(alarmInfo);
                         break;
                     case ConsUtils.SET_ALARM_CANCEL:
@@ -197,4 +199,8 @@ public class HomeActivity extends SlidingFragmentActivity {
     public void aboutMorning(View v){
         startActivity(new Intent(this, AboutActivity.class));
     }
+    public void checkUpdate(View v){
+        UmengUpdateAgent.forceUpdate(this);
+    }
+
 }

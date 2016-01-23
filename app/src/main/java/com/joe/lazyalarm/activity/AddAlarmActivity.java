@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -61,6 +62,7 @@ public class AddAlarmActivity extends BaseActivity implements View.OnClickListen
         mLevel=0;
         mTagDesc="闹钟";
         Ringid="everybody.mp3";
+        RingName="everybody";
         initCheckBox();
     }
 
@@ -161,7 +163,7 @@ public class AddAlarmActivity extends BaseActivity implements View.OnClickListen
         int[] day=getRepeatDay();
         alarmInfo.setDayOfWeek(day);
         alarmInfo.setLazyLevel(mLevel);
-
+        Log.d("alarm", "加入是的铃声名字" +RingName);
         alarmInfo.setTag(mTagDesc);
         alarmInfo.setRing(RingName);
         alarmInfo.setRingResId(Ringid);
