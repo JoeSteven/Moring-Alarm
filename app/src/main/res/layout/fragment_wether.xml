@@ -3,13 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@color/blue"
-    android:layout_height="match_parent"
-
+    android:layout_height="wrap_content"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@id/ll_background"
         >
@@ -22,6 +21,7 @@
             android:src="@mipmap/day_01"
             />
         <LinearLayout
+            android:id="@+id/ll_content_weather"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PM25 ——"
+                android:text="PM2.5 ——"
                 android:textSize="18sp"
                 android:textColor="@android:color/white"
                 />
@@ -110,9 +110,10 @@
 
     </LinearLayout>
     <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/ll_background"
         android:id="@id/ll_future_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView

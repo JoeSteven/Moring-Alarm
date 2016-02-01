@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.joe.lazyalarm.dao.AlarmInfoDao;
@@ -19,32 +20,32 @@ import java.util.Date;
 public class AlarmClock {
     private AlarmInfo alarmInfo;
     private Context context;
+    private final AlarmInfoDao dao;
 
     public AlarmClock(Context context) {
         this.context = context;
-
+        dao = new AlarmInfoDao(context);
     }
-    public void turnAlarm(AlarmInfo alarmInfo,Boolean isOn){
+    public void turnAlarm(AlarmInfo alarmInfo,String AlarmID,Boolean isOn){
+        if(alarmInfo==null){
+            Log.d("alarm","传入AlarmInfo不为空");
+            alarmInfo=dao.findById(AlarmID);
+        }
         this.alarmInfo=alarmInfo;
         AlarmManager mAlamManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        AlarmInfoDao dao=new AlarmInfoDao(context);
         int id=dao.getOnlyId(alarmInfo);
         Intent intent = new Intent(context, AlarmReciver.class);
+        Bundle bundle=new Bundle();
+        bundle.putSerializable("alarminfo", alarmInfo);
+        intent.putExtras(bundle);
         intent.setAction("com.Joe.RING_ALARM");
         intent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        intent.putExtra("lazylevel", alarmInfo.getLazyLevel());
         intent.putExtra("alarmid", id);
-        intent.putExtra("tag", alarmInfo.getTag());
-        intent.putExtra("dayofweek", alarmInfo.getDayOfWeek());
-        intent.putExtra("ring", alarmInfo.getRing());
-        intent.putExtra("hour",alarmInfo.getHour());
-        intent.putExtra("minute",alarmInfo.getMinute());
         intent.putExtra("cancel",false);
         intent.putExtra("getid",alarmInfo.getId());
-        intent.putExtra("resid",alarmInfo.getRingResId());
         Log.d("alarm", "id" + id);
         //每个闹钟不同的pi
-        PendingIntent pi= PendingIntent.getBroadcast(context,id, intent, 0);
+        PendingIntent pi= PendingIntent.getBroadcast(context,id, intent,PendingIntent.FLAG_UPDATE_CURRENT);
         if(isOn){
             startAlarm(mAlamManager,pi);
         }else{

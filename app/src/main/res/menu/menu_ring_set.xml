@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.HomeActivity">
+
+    <item
+        android:id="@+id/action_done_ring"
+        android:orderInCategory="100"
+        android:title="完成"
+        android:icon="@drawable/ic_check_white_24dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_custom_ring"
+        android:orderInCategory="80"
+        android:title="自定义"
+        app:showAsAction="ifRoom" />
+</menu>

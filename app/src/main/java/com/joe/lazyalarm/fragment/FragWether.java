@@ -258,7 +258,7 @@ public class FragWether extends BaseFragment {
         mTemperature.setText(mTodayData.weather.temperature+"°");
         mWind.setText(mTodayData.wind.direct);
         mWindPower.setText(mTodayData.wind.power);
-        mPM25.setText("PM25     "+mPm25Data.pm25.pm25);
+        mPM25.setText("PM2.5     "+mPm25Data.pm25.pm25);
         mPM25Desc.setText(mPm25Data.pm25.quality);
         //拿到未來六天的數據
         for(int i=1;i<mFutureList.size();i++){

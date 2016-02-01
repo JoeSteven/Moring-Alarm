@@ -8,7 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
+import android.os.Bundle;
 import android.os.PowerManager;
 import android.text.InputType;
 import android.util.Log;
@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.joe.lazyalarm.R;
 import com.joe.lazyalarm.activity.WakeUpActivity;
+import com.joe.lazyalarm.domain.AlarmClock;
+import com.joe.lazyalarm.domain.AlarmInfo;
 import com.joe.lazyalarm.service.AlarmRingService;
 import com.joe.lazyalarm.utils.ConsUtils;
 import com.joe.lazyalarm.utils.PrefUtils;
@@ -36,32 +38,30 @@ public class AlarmReciver  extends BroadcastReceiver{
 
     private int lazylevel;
     private String tag;
-    private String ring;
     private Context context;
     private int A;
     private int B;
     private int id;
-    private int hour;
-    private int minute;
     private AlarmManager alarmManager;
     private String getid;
     private String resid;
+    private int[] dayOfWeek;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context=context;
         Log.d("alarm","收到广播");
-        //先进行判断今天该闹钟是否该响
-        int[]dayOfWeek=intent.getIntArrayExtra("dayofweek");
-        //需要的数据是 赖床级数 标签 铃声
-        lazylevel = intent.getIntExtra("lazylevel", 0);
-        tag = intent.getStringExtra("tag");
-        ring = intent.getStringExtra("ring");
-        id = intent.getIntExtra("alarmid", 0);
-        hour = intent.getIntExtra("hour",-1);
-        minute = intent.getIntExtra("minute", -1);
         getid = intent.getStringExtra("getid");
-        resid = intent.getStringExtra("resid");
+        Bundle bundle=intent.getExtras();
+        AlarmInfo currentAlarm=(AlarmInfo)bundle.getSerializable("alarminfo");
+        lazylevel=currentAlarm.getLazyLevel();
+        tag=currentAlarm.getTag();
+        dayOfWeek=currentAlarm.getDayOfWeek();
+        resid=currentAlarm.getRingResId();
+        id = intent.getIntExtra("alarmid", 0);
+        //先进行判断今天该闹钟是否该响
+        //需要的数据是 赖床级数 标签 铃声
+        Log.d("alarm", dayOfWeek[0]+"dayofweek0");
         Log.d("alarm","cancel"+intent.getBooleanExtra("cancel",false));
         if(intent.getBooleanExtra("cancel",false)){
             cancelAlarm(intent);
@@ -72,30 +72,41 @@ public class AlarmReciver  extends BroadcastReceiver{
             ringAlarm();
             PrefUtils.putBoolean(context,getid,false);
         }else{
+            Log.d("alarm","执行else"+ dayOfWeek.length);
             Calendar calendar=Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             int currentDay=calendar.get(Calendar.DAY_OF_WEEK)-1;
-            for(int i=0;i<dayOfWeek.length;i++){
-                if(currentDay==dayOfWeek[i]){
+            for(int i=0;i< dayOfWeek.length;i++){
+                Log.d("alarm", dayOfWeek[i]+";"+currentDay);
+                if(dayOfWeek[i]==7){
+                    dayOfWeek[i]=0;
+                }
+                if(currentDay== dayOfWeek[i]){
+                    Log.d("alarm", dayOfWeek[i]+";"+currentDay);
                     wakePhoneAndUnlock();
                     ringAlarm();
                 }
             }
-            runAlarmAgain(intent, id);
+            runAlarmAgain(intent, getid);
         }
     }
 
 
 
     private void cancelAlarm(Intent intent) {
+        Log.d("alarm","取消闹钟");
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pi=PendingIntent.getBroadcast(context,id,intent,0);
+        PendingIntent pi=PendingIntent.getBroadcast(context,id,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(pi);
     }
 
-    private void runAlarmAgain(Intent intent, int id) {
+    private void runAlarmAgain(Intent intent, String id) {
+
+    //未完成
         Log.d("alarm","再次启动闹钟");
-        alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmClock alarmClock=new AlarmClock(context);
+        alarmClock.turnAlarm(null,getid,true);
+        /*alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pi=PendingIntent.getBroadcast(context,id,intent,0);
         Calendar c=Calendar.getInstance();
        if(hour!=-1&&minute!=-1){
@@ -119,7 +130,7 @@ public class AlarmReciver  extends BroadcastReceiver{
             } else {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pi);
             }
-        }
+        }*/
     }
 
     //点亮屏幕并解锁
@@ -151,7 +162,7 @@ public class AlarmReciver  extends BroadcastReceiver{
         Log.d("alarm", "收到广播的时间" + date.toString());
 
         showAlarmDialog();
-        Log.d("alarm", "赖床指数" + lazylevel + "," + tag + "," + ring);
+        Log.d("alarm", "赖床指数" + lazylevel + "," + tag + ",");
     }
     //展示闹钟对话框
     private void showAlarmDialog() {
@@ -160,7 +171,7 @@ public class AlarmReciver  extends BroadcastReceiver{
         service.putExtra("resid", resid);
         context.startService(service);
 
-
+        Log.d("alarm", "初始化dialog");
         View edit=View.inflate(context, R.layout.dialog_tag,null);
         final EditText Input= (EditText) edit.findViewById(R.id.et_tag);
         Input.setInputType(InputType.TYPE_CLASS_NUMBER);
@@ -237,6 +248,7 @@ public class AlarmReciver  extends BroadcastReceiver{
         params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         dialog.getWindow().setAttributes(params);
         dialog.getWindow().getAttributes().gravity = Gravity.CENTER;
+        Log.d("alarm", "dialogshow");
         dialog.show();
     }
 

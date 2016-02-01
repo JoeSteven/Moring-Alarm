@@ -16,15 +16,20 @@
     </style>
 
     <style name="Transparent" parent="AppTheme.NoActionBar">
-    　　<item name="android:windowBackground">@color/TransBlack</item>
-    　　<item name="android:windowIsTranslucent">true</item>
-    　　<item name="android:windowAnimationStyle">@style/HintAnimation</item>
-    　　
+        　　
+        <item name="android:windowBackground">@color/TransBlack</item>
+        　　
+        <item name="android:windowIsTranslucent">true</item>
+        　　
+        <item name="android:windowAnimationStyle">@style/HintAnimation</item>
+        　　
     </style>
+
     <style name="HintAnimation">
         <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
         <item name="android:windowExitAnimation">@anim/out_to_left</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

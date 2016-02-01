@@ -33,6 +33,7 @@ public class HomeActivity extends SlidingFragmentActivity {
     private FragSlideMenu mFragSlideMenu;
     private FloatingActionButton fab;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -148,9 +149,8 @@ public class HomeActivity extends SlidingFragmentActivity {
     }
 
     private void initFragment() {
-
-        FragmentManager fm=getFragmentManager();
-        FragmentTransaction ft=fm.beginTransaction();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft= fm.beginTransaction();
         //加入标记
         ft.replace(R.id.fl_wether,mFragWether,ConsUtils.FRAG_WETHER);
         ft.replace(R.id.fl_menu_content,mFragSlideMenu);
@@ -177,7 +177,13 @@ public class HomeActivity extends SlidingFragmentActivity {
                     case ConsUtils.SET_ALARM_CANCEL:
                         break;
                 }
-
+            case ConsUtils.UPDATAE_ALARM:
+                FragmentManager fm=getFragmentManager();
+                FragmentTransaction ft=fm.beginTransaction();
+                mFragAlarm=new FragAlarm();
+                ft.replace(R.id.fl_alam, mFragAlarm);
+                ft.commit();
+                break;
             default:
 
                 break;
@@ -191,15 +197,19 @@ public class HomeActivity extends SlidingFragmentActivity {
     }
 
     public void howToUse(View v){
+        mFragSlideMenu.stopAlarmMusic();
         startActivity(new Intent(this, HelpActivity.class));
     }
     public void contactUs(View v){
+        mFragSlideMenu.stopAlarmMusic();
         startActivity(new Intent(this, ContactUsActivity.class));
     }
     public void aboutMorning(View v){
+        mFragSlideMenu.stopAlarmMusic();
         startActivity(new Intent(this, AboutActivity.class));
     }
     public void checkUpdate(View v){
+        mFragSlideMenu.stopAlarmMusic();
         UmengUpdateAgent.forceUpdate(this);
     }
 

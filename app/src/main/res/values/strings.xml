@@ -8,4 +8,5 @@
     <string name="title_activity_contact_us">ContactUsActivity</string>
     <string name="title_activity_about">AboutActivity</string>
     <string name="title_activity_hint">HintActivity</string>
+    <string name="title_activity_custom_ring_set">CustomRingSetActivity</string>
 </resources>

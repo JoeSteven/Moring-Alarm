@@ -11,18 +11,23 @@
     <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
-        <meta-data android:value="56a2549ce0f55aa332000386" android:name="UMENG_APPKEY"/>
-        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="56a2549ce0f55aa332000386" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Channel ID" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.HomeActivity"
             android:label="@string/app_name">
             <intent-filter>
@@ -32,27 +37,39 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.AddAlarmActivity"
-            android:label="添加闹钟" />
+            android:label="添加闹钟"
+            android:parentActivityName=".activity.HomeActivity" />
         <activity
             android:name=".activity.WakeUpActivity"
             android:label="@string/title_activity_wake_up"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.RingSetActivity"
-            android:label="铃声选择" />
-
-
-        <receiver android:name=".reciever.AlarmReciver" android:process=":newinst">
+            android:label="铃声选择"
+            android:parentActivityName=".activity.AddAlarmActivity"
+            />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".activity.CustomRingSetActivity"
+            android:label="自定义铃声"
+            android:parentActivityName=".activity.RingSetActivity"
+            />
+        <receiver
+            android:name=".reciever.AlarmReciver"
+            android:process=":newinst">
             <intent-filter>
-                <action android:name="com.Joe.RING_ALARM"/>
+                <action android:name="com.Joe.RING_ALARM" />
             </intent-filter>
         </receiver>
         <receiver android:name=".reciever.BootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".service.AlarmRingService"
             android:enabled="true"
@@ -63,31 +80,36 @@
             android:exported="true" />
 
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.GuideActivity"
             android:label="@string/title_activity_guide"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.HelpActivity"
             android:label="使用说明" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.ContactUsActivity"
             android:label="联系我们" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.AboutActivity"
             android:label="About Morning" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".activity.HintActivity"
             android:label="@string/title_activity_hint"
             android:theme="@style/Transparent" />
-        <!--友盟自动更新集成-->
+        <!-- 友盟自动更新集成 -->
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService" >
-        </service>
+            android:process=":DownloadingService"/>
+
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-        </activity>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
     </application>
 
 </manifest>

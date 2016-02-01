@@ -31,7 +31,7 @@ public class BootReceiver extends BroadcastReceiver {
         for (AlarmInfo alarmInfo:list) {
             if(PrefUtils.getBoolean(context, alarmInfo.getId(), true)){
                 Log.d("alarm","有闹钟，开启");
-                clock.turnAlarm(alarmInfo,true);
+                clock.turnAlarm(alarmInfo,null,true);
             }
 
         }

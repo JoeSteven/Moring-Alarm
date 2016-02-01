@@ -15,6 +15,7 @@ public  class ConsUtils {
     public static final int UPDATE_ALARM_DONE=2;//闹钟设置成功
     public static final int UPDATE_ALARM_CANCEL=3;//闹钟修改取消
     public static final int ADD_ALARM=0;//跳转到闹钟添加
+    public static final int UPDATAE_ALARM=8;//跳转到闹钟添加
     public static final int ASK_FOR_RING=5;//跳转到闹钟添加
     public static final int RING_SET_DONG=6;//跳转到闹钟添加
     public static final int RING_SET_CANCEL=7;//跳转到闹钟添加

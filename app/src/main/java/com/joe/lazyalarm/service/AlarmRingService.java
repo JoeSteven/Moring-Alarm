@@ -42,10 +42,17 @@ public class AlarmRingService extends Service {
         AssetFileDescriptor assetFileDescriptor= null;
         try {
             mPlayer=new MediaPlayer();
-            assetFileDescriptor = this.getAssets().openFd(song);
+
             mPlayer.reset();
             mPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-            mPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+            if(song.contains("/")){
+                //说明是自定义铃声
+                mPlayer.setDataSource(song);
+            }else{
+                assetFileDescriptor = this.getAssets().openFd(song);
+                mPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(),
+                        assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+            }
             mPlayer.setVolume(1f, 1f);
             mPlayer.setLooping(true);
             mPlayer.prepare();

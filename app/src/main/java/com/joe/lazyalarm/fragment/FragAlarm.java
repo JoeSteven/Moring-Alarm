@@ -1,7 +1,6 @@
 package com.joe.lazyalarm.fragment;
 
 import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -24,13 +23,11 @@ import com.joe.lazyalarm.activity.AddAlarmActivity;
 import com.joe.lazyalarm.dao.AlarmInfoDao;
 import com.joe.lazyalarm.domain.AlarmClock;
 import com.joe.lazyalarm.domain.AlarmInfo;
-import com.joe.lazyalarm.reciever.AlarmReciver;
 import com.joe.lazyalarm.reciever.BootReceiver;
+import com.joe.lazyalarm.utils.ConsUtils;
 import com.joe.lazyalarm.utils.PrefUtils;
 import com.kyleduo.switchbutton.SwitchButton;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,6 +52,7 @@ public class FragAlarm extends BaseFragment{
     }
 
     protected void initData() {
+
         onMenu=null;
         isMenuOn=false;
         mDao = new AlarmInfoDao(mActivity);
@@ -67,7 +65,7 @@ public class FragAlarm extends BaseFragment{
                     for (AlarmInfo alarmInfo:mAlarmInfoList) {
                         Boolean isAlarmOn=PrefUtils.getBoolean(mActivity, alarmInfo.getId(), true);
                         //开启闹钟或关闭闹钟
-                        mAlarmClock.turnAlarm(alarmInfo,isAlarmOn);
+                        mAlarmClock.turnAlarm(alarmInfo,null,isAlarmOn);
                     }
                 }
             }.start();
@@ -102,7 +100,7 @@ public class FragAlarm extends BaseFragment{
                         //关掉菜单
                         toggleMenu(view);
                         //删除的时候取消掉闹钟
-                        mAlarmClock.turnAlarm(mAlarmInfoList.get(position),false);
+                        mAlarmClock.turnAlarm(mAlarmInfoList.get(position),null,false);
                         //将缓存中的数据也删除掉
                         PrefUtils.remove(mActivity,mAlarmInfoList.get(position).getId());
                         //删除该条数据
@@ -117,10 +115,11 @@ public class FragAlarm extends BaseFragment{
                     public void onClick(View v) {
                         String oldAlarmID=mAlarmInfoList.get(position).getId();
                         Intent intent=new Intent(mActivity, AddAlarmActivity.class);
+                        intent.putExtra("update",true);
                         intent.putExtra("oldId",oldAlarmID);
                         intent.putExtra("location", position);
-                        startActivity(intent);
-                        mActivity.finish();
+                        mActivity.startActivityForResult(intent,ConsUtils.UPDATAE_ALARM);
+                        //mActivity.finish();
                     }
                 });
 
@@ -250,12 +249,12 @@ public class FragAlarm extends BaseFragment{
                     if (isChecked) {
                         PrefUtils.putBoolean(mActivity, alarmInfo.getId(), true);
                         toggleAlarm(holder, PrefUtils.getBoolean(mActivity, alarmInfo.getId(), true), alarmInfo);
-                        mAlarmClock.turnAlarm(alarmInfo, true);
+                        mAlarmClock.turnAlarm(alarmInfo,null,true);
                        // runAlarmClock(alarmInfo);
                     } else {
                         PrefUtils.putBoolean(mActivity, alarmInfo.getId(), false);
                         toggleAlarm(holder, PrefUtils.getBoolean(mActivity, alarmInfo.getId(), true), alarmInfo);
-                        mAlarmClock.turnAlarm(alarmInfo,false);
+                        mAlarmClock.turnAlarm(alarmInfo,null,false);
                     }
                 }
             });
@@ -309,24 +308,6 @@ public class FragAlarm extends BaseFragment{
        }
     }
 
-    //开启闹钟
-    private void runAlarmClock(AlarmInfo alarmInfo) {
-        //获取到mAlarmManager
-        mAlarmManager = (AlarmManager) mActivity.getSystemService(mActivity.ALARM_SERVICE);
-        //写出意图
-        Intent intent=new Intent(mActivity, AlarmReciver.class);
-        intent.setFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        //
-        PendingIntent pi=PendingIntent.getBroadcast(mActivity,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-        Calendar calendar=Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY,alarmInfo.getHour());
-        calendar.set(Calendar.MINUTE,alarmInfo.getMinute());
-        calendar.set(Calendar.SECOND,0);
-        calendar.set(Calendar.MILLISECOND,0);
-        Date date=calendar.getTime();
-        Log.d("alarm",date.toString());
-        mAlarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),3000,pi);
-    }
 
     @Override
     public void onPause() {

@@ -5,8 +5,11 @@ import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,26 +22,30 @@ import com.joe.lazyalarm.R;
 import com.joe.lazyalarm.utils.ConsUtils;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class RingSetActivity extends AppCompatActivity {
 
     private ListView lv_ring;
     private String[] ringName=new String[]{"Everybody","荆棘鸟","加勒比海盗","圣斗士(慎点)",
             "Flower","Time Traval","Thank you for","律动","Morning","Echo","Alarm Clock"};
+    private ArrayList<String> ringList;
+    private ArrayList<String> ringIDList;
     private String[] songId=new String[]{"everybody.mp3","bird.mp3","galebi.mp3","shendoushi.mp3",
             "flower.mp3","timetravel.mp3","thankufor.mp3","mx1.mp3","mx2.mp3","echo.mp3","clock.mp3"};
     private int currentItem;
     private MyAdapter mAdapter;
     private MediaPlayer mPlayer;
-    private Boolean isPlaying;
 
-
-    private String serRingName;//最终选定的名字
+    private String setRingName;//最终选定的名字
     private String setRingId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ring_set);
+        ActionBar ab = getSupportActionBar();
+        // 设置返回开启
+        ab.setDisplayHomeAsUpEnabled(true);
         iniView();
         initAdapter();
         initListener();
@@ -46,14 +53,40 @@ public class RingSetActivity extends AppCompatActivity {
 
     private void iniView() {
         lv_ring = (ListView) findViewById(R.id.lv_ring_set);
-        serRingName="everybody.mp3";
+        setRingName ="everybody.mp3";
         currentItem=0;
         setRingId=songId[0];
         Log.d("alarm","默认得到的id"+setRingId);
-        isPlaying=false;
+        ringList=new ArrayList<String>();
+        ringIDList=new ArrayList<String>();
+
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_ring_set, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_done_ring:
+                doneRing();
+                break;
+            case R.id.action_custom_ring:
+                startActivityForResult(new Intent(this,CustomRingSetActivity.class),0);
+                stopTheSong();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private void initAdapter() {
+        for(int i=0;i<ringName.length;i++){
+            ringList.add(ringName[i]);
+            ringIDList.add(songId[i]);
+        }
         mAdapter = new MyAdapter();
         lv_ring.setAdapter(mAdapter);
     }
@@ -62,13 +95,13 @@ public class RingSetActivity extends AppCompatActivity {
         lv_ring.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                serRingName = ringName[position];
-                setRingId=songId[position];
+                setRingName = ringList.get(position);
+                setRingId=ringIDList.get(position);
                 currentItem = position;
                 mAdapter.notifyDataSetChanged();
-                if(isPlaying){
+                /*if(isPlaying){
                     stopTheSong();
-                }
+                }*/
                 ringTheSong(position);
             }
         });
@@ -76,12 +109,18 @@ public class RingSetActivity extends AppCompatActivity {
     //播放音乐
     private void ringTheSong(int position) {
         AssetFileDescriptor assetFileDescriptor= null;
-        try {
+        if(mPlayer==null){
             mPlayer=new MediaPlayer();
-            assetFileDescriptor = this.getAssets().openFd(songId[position]);
-            mPlayer.reset();
+        }
+        mPlayer.reset();
+        try {
             mPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
-            mPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+            if(position==0&&!ringList.get(position).equals(ringName[0])){
+                mPlayer.setDataSource(ringIDList.get(0));
+            }else{
+                assetFileDescriptor = this.getAssets().openFd(ringIDList.get(position));
+                mPlayer.setDataSource(assetFileDescriptor.getFileDescriptor(), assetFileDescriptor.getStartOffset(), assetFileDescriptor.getLength());
+            }
             mPlayer.setVolume(1f, 1f);
             mPlayer.setLooping(true);
             mPlayer.prepare();
@@ -90,13 +129,15 @@ public class RingSetActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        isPlaying=true;
+        //isPlaying=true;
     }
     private void stopTheSong(){
         if(mPlayer!=null){
-            mPlayer.stop();
+            Log.d("ring","mPlay"+mPlayer.toString());
+            if(mPlayer.isPlaying()){
+                mPlayer.stop();
+            }
             mPlayer.release();
-            isPlaying=false;
         }
     }
 
@@ -120,7 +161,7 @@ public class RingSetActivity extends AppCompatActivity {
             }else{
                 holder= (ViewHolder) convertView.getTag();
             }
-            holder.Name.setText(ringName[position]);
+            holder.Name.setText(ringList.get(position));
             if(position==currentItem){
                 holder.Radio.setChecked(true);
             }else{
@@ -130,12 +171,12 @@ public class RingSetActivity extends AppCompatActivity {
         }
         @Override
         public int getCount() {
-            return ringName.length;
+            return ringList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return ringName[position];
+            return ringList.get(position);
         }
 
         @Override
@@ -144,16 +185,14 @@ public class RingSetActivity extends AppCompatActivity {
         }
     }
 
-    public void cancelRing(View v){
-        stopTheSong();
+    private void cancelRing(){
         setResult(ConsUtils.RING_SET_CANCEL,new Intent());
         finish();
     }
 
-    public void doneRing(View v){
-        stopTheSong();
+    private void doneRing(){
         Intent intent=new Intent();
-        intent.putExtra("songname",serRingName);
+        intent.putExtra("songname", setRingName);
         intent.putExtra("songid",setRingId);
         setResult(ConsUtils.RING_SET_DONG,intent);
         finish();
@@ -161,7 +200,25 @@ public class RingSetActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        setResult(ConsUtils.RING_SET_CANCEL,new Intent());
-        finish();
+        cancelRing();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopTheSong();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            ringList.add(0,data.getStringExtra("RingName"));
+            ringIDList.add(0,data.getStringExtra("RingPath"));
+            currentItem=0;
+            setRingId=ringIDList.get(0);
+            setRingName=ringList.get(0);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 }

@@ -19,43 +19,10 @@
             style="@style/Divider_gray"
             />
 
-    <!-- 底边栏-->
-    <RelativeLayout
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
-        android:id="@+id/ll_bottom_add">
-        <ImageView
-            android:onClick="cancelAlarm"
-            android:id="@id/iv_back_add"
-            android:layout_marginLeft="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/icon_back"
-            />
-        <TextView
-            android:layout_alignParentRight="true"
-            android:onClick="doneAlarm"
-            android:id="@id/tv_done_add"
-            android:layout_marginRight="40dp"
-            android:gravity="right"
-            android:text="完成"
-            android:textSize="25sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-    <TextView
-
-        android:layout_above="@id/ll_bottom_add"
-        style="@style/Divider_gray" />
 
     <!-- 选项-->
     <ScrollView
         android:layout_below="@id/divider_add"
-        android:layout_above="@id/ll_bottom_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout

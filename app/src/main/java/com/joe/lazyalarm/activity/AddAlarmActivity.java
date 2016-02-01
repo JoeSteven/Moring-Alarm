@@ -4,7 +4,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -14,9 +17,13 @@ import android.widget.TimePicker;
 
 import com.joe.lazyalarm.R;
 import com.joe.lazyalarm.dao.AlarmInfoDao;
+import com.joe.lazyalarm.domain.AlarmClock;
 import com.joe.lazyalarm.domain.AlarmInfo;
 import com.joe.lazyalarm.utils.ConsUtils;
 import com.joe.lazyalarm.view.AddItemView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddAlarmActivity extends BaseActivity implements View.OnClickListener{
 
@@ -40,18 +47,22 @@ public class AddAlarmActivity extends BaseActivity implements View.OnClickListen
     private Intent mIntent;
     private String RingName;
     private String Ringid;
+    private List<CheckBox> repeatList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_alarm);
+        ActionBar ab = getSupportActionBar();
+        // 设置返回开启
+        ab.setDisplayHomeAsUpEnabled(true);
         initView();
         initData();
         initListener();
     }
 
     private void initView() {
-        mIntent = getIntent();
+
         mTimePicker = (TimePicker) findViewById(R.id.tp_set_alarm_add);
         mTimePicker.setIs24HourView(true);
         mBack = (ImageView) findViewById(R.id.iv_back_add);
@@ -64,9 +75,39 @@ public class AddAlarmActivity extends BaseActivity implements View.OnClickListen
         Ringid="everybody.mp3";
         RingName="everybody";
         initCheckBox();
+        mIntent = getIntent();
+        if(mIntent.getBooleanExtra("update",false)){
+            updateView();
+        }
+    }
+
+    private void updateView() {
+        AlarmInfoDao dao=new AlarmInfoDao(this);
+        AlarmInfo alarmInfo=dao.findById(mIntent.getStringExtra("oldId"));
+        mTimePicker.setCurrentHour(alarmInfo.getHour());
+        mTimePicker.setCurrentMinute(alarmInfo.getMinute());
+        //设置checkbox
+        for(int i=0;i<alarmInfo.getDayOfWeek().length;i++){
+            if(alarmInfo.getDayOfWeek()[0]==0){
+                break;
+            }else{
+                repeatList.get(alarmInfo.getDayOfWeek()[i]-1).setChecked(true);
+            }
+        }
+        mTag.setDesc(alarmInfo.getTag());
+        mLazyLevel.setDesc("赖床指数:"+alarmInfo.getLazyLevel()+"级");
+        mRing.setDesc(alarmInfo.getRing());
+
+        mHours=alarmInfo.getHour();
+        mMinute=alarmInfo.getMinute();
+        mLevel=alarmInfo.getLazyLevel();
+        mTagDesc=alarmInfo.getTag();
+        Ringid=alarmInfo.getRingResId();
+        RingName=alarmInfo.getRing();
     }
 
     private void initCheckBox() {
+        repeatList=new ArrayList<CheckBox>();
         mDay1 = (CheckBox) findViewById(R.id.cb_day_1);
         mDay2 = (CheckBox) findViewById(R.id.cb_day_2);
         mDay3 = (CheckBox) findViewById(R.id.cb_day_3);
@@ -74,11 +115,34 @@ public class AddAlarmActivity extends BaseActivity implements View.OnClickListen
         mDay5 = (CheckBox) findViewById(R.id.cb_day_5);
         mDay6 = (CheckBox) findViewById(R.id.cb_day_6);
         mDay7 = (CheckBox) findViewById(R.id.cb_day_7);
+        repeatList.add(mDay1);
+        repeatList.add(mDay2);
+        repeatList.add(mDay3);
+        repeatList.add(mDay4);
+        repeatList.add(mDay5);
+        repeatList.add(mDay6);
+        repeatList.add(mDay7);
     }
 
     private void initData() {
         mTimePicker.setCurrentHour(mHours);
         mTimePicker.setCurrentMinute(mMinute);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_add,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_done:
+                doneAlarm();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //获取TimePicker的时间
@@ -171,29 +235,39 @@ public class AddAlarmActivity extends BaseActivity implements View.OnClickListen
     }
 
     //底边栏的两个方法
-    public void doneAlarm(View v){
+    private void doneAlarm(){
         //当用户完成设置时，将时间封装到对象中，传回给homeActivity
-        AlarmInfo alarmInfo=getAddAlarmInfo();
         AlarmInfoDao dao=new AlarmInfoDao(this);
-
+        AlarmInfo alarmInfo;
         Intent intent=new Intent();
         Bundle bundle=new Bundle();
-        bundle.putSerializable("alarm", alarmInfo);
-        intent.putExtras(bundle);
+        if(mIntent.getBooleanExtra("update", false)){
 
-        if(mIntent.getStringExtra("oldId")!=null){
+            alarmInfo=getAddAlarmInfo();
+            intent.setClass(this, HomeActivity.class);
+            bundle.putSerializable("alarm", alarmInfo);
+            intent.putExtras(bundle);
+            Log.d("alarm", "修改闹钟" + alarmInfo.getDayOfWeek());
+            //取消旧的闹钟
+            AlarmInfo oldAlarmInfo=dao.findById(mIntent.getStringExtra("oldId"));
+            AlarmClock alarmClock=new AlarmClock(this);
+            alarmClock.turnAlarm(oldAlarmInfo,null,false);
             //修改数据库
             dao.updateAlarm(mIntent.getStringExtra("oldId"), alarmInfo);
-            intent.setClass(this,HomeActivity.class);
-            startActivity(intent);
+            setResult(ConsUtils.UPDATE_ALARM_DONE,intent);
         }else{
+            alarmInfo=getAddAlarmInfo();
             dao.addAlarmInfo(alarmInfo);
+            bundle.putSerializable("alarm", alarmInfo);
+            intent.putExtras(bundle);
+            Log.d("alarm", "添加闹钟" + alarmInfo.getDayOfWeek());
             setResult(ConsUtils.SET_ALARM_DONE, intent);
         }
+
         finish();
     }
 
-    public void cancelAlarm(View v){
+    private void cancelAlarm(){
         if(mIntent.getStringExtra("oldId")!=null){
             setResult(ConsUtils.UPDATE_ALARM_CANCEL,new Intent());
             startActivity(new Intent(this,HomeActivity.class));
@@ -206,14 +280,7 @@ public class AddAlarmActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onBackPressed() {
-        if(mIntent.getStringExtra("oldId")!=null){
-            setResult(ConsUtils.UPDATE_ALARM_CANCEL,new Intent());
-            startActivity(new Intent(this, HomeActivity.class));
-        }
-        else{
-            setResult(ConsUtils.SET_ALARM_CANCEL, new Intent());
-        }
-        finish();
+        cancelAlarm();
     }
 
     //选择赖床级数
