@@ -1,10 +1,10 @@
 # Moring-Alarm
 An alarm-clock application with weather condition。
 ## 应用截图
-![1.jpg](http://upload-images.jianshu.io/upload_images/1473110-d0f048192f9c9a21.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![2.jpg](http://upload-images.jianshu.io/upload_images/1473110-6061f85228f712f7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![3.jpg](http://upload-images.jianshu.io/upload_images/1473110-249a89711a75ad44.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![4.jpg](http://upload-images.jianshu.io/upload_images/1473110-f65a648bd0c114c7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![l04.jpg](http://upload-images.jianshu.io/upload_images/1473110-63d18ec94721193e.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480)
+![l01.jpg](http://upload-images.jianshu.io/upload_images/1473110-05e9088a5c7bf189.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480)
+![l02.jpg](http://upload-images.jianshu.io/upload_images/1473110-845dbe14e6068fa5.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480)
+![l03.jpg](http://upload-images.jianshu.io/upload_images/1473110-e8ca723b831fdae1.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/480)
 ## 更新日志
 
 #### 2016.2.1
