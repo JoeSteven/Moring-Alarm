@@ -32,7 +32,7 @@ public  class ConsUtils {
     public static final String ALARM_RING_ID="RingId";//一周重复的天
 
     //天气模块
-    public static final String WETHER_API_KEY="f009177615ba3d5764b160e09d6eebbb";//请求接口的key
+    public static final String WETHER_API_KEY="sercret";//请求接口的key
     public static final int[] WETHER_IMG_DAY=new int[]{
             R.mipmap.day_01,R.mipmap.day_02,R.mipmap.day_03,R.mipmap.day_04,R.mipmap.day_05,R.mipmap.day_06,
             R.mipmap.day_07,R.mipmap.day_08,R.mipmap.day_09,R.mipmap.day_10,R.mipmap.day_11,R.mipmap.day_12,
