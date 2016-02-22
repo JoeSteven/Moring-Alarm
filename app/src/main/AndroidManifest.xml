@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="56a2549ce0f55aa332000386" />
+            android:value="sercret" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Channel ID" />
