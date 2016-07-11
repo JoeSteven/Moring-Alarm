@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LazyAlarm.iml" filepath="$PROJECT_DIR$/LazyAlarm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Moring-Alarm.iml" filepath="$PROJECT_DIR$/Moring-Alarm.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidemenu/SlidingMenu-master/library/SlidingMenu-master_library.iml" filepath="$PROJECT_DIR$/slidemenu/SlidingMenu-master/library/SlidingMenu-master_library.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />

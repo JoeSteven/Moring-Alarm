@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\AdroidProject\LazyAlarm\slidemenu\SlidingMenu-master\library\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="F:\AdroidProject\LazyAlarm\slidemenu\SlidingMenu-master\library\src\release\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/joe/AndroidStudioProjects/Moring-Alarm/slidemenu/SlidingMenu-master/library/src/main/jniLibs"/></dataSet><dataSet config="release"><source path="/Users/joe/AndroidStudioProjects/Moring-Alarm/slidemenu/SlidingMenu-master/library/src/release/jniLibs"/></dataSet></merger>
